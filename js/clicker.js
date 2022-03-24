@@ -25,6 +25,8 @@ let money = 0;
 let moneyPerClick = 1;
 let moneyPerSecond = 0;
 let last = 0;
+let cityBuiltLvl = 0;
+let moneyForDevelopment = 2;
 
 let achievementTest = false;
 
@@ -61,6 +63,17 @@ function step(timestamp) {
     moneyTracker.textContent = Math.round(money);
     mpsTracker.textContent = moneyPerSecond;
     mpcTracker.textContent = moneyPerClick;
+
+    if(moneyPerSecond == moneyForDevelopment)
+    {
+        alert();
+        var img = document.createElement("img");
+        img.src = "img/blue.png"
+        img.classList.add = "img-container";
+        document.getElementById("bilder").appendChild(img);
+        moneyForDevelopment = moneyForDevelopment + 10;
+        alert(moneyForDevelopment);
+    }
 
     if (timestamp >= last + 1000) {
         money += moneyPerSecond;
