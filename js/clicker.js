@@ -27,6 +27,10 @@ let moneyPerSecond = 0;
 let last = 0;
 let cityBuiltLvl = 0;
 let moneyForDevelopment = 2;
+var xPos = 0;
+var yPos = 0;
+var xSize = 16;
+var ySize = 16;
 
 let achievementTest = false;
 
@@ -64,15 +68,25 @@ function step(timestamp) {
     mpsTracker.textContent = moneyPerSecond;
     mpcTracker.textContent = moneyPerClick;
 
-    if(moneyPerSecond == moneyForDevelopment)
+    if(moneyPerSecond >= moneyForDevelopment) //Visual city development
     {
-        alert();
+        /*
         var img = document.createElement("img");
         img.src = "img/blue.png"
-        img.classList.add = "img-container";
+        img.classList.add = "img-display";
         document.getElementById("bilder").appendChild(img);
-        moneyForDevelopment = moneyForDevelopment + 10;
-        alert(moneyForDevelopment);
+        */
+        /*
+        var c = document.getElementById("displayCanvas");
+        var ctx = c.getContext("2d");
+        var img = document.getElementById("house");
+        ctx.drawImage(img, xPos, yPos, xSize, ySize);
+        xPos += xSize;
+        */
+       //Lägg till specifik husdesign beroende på uppgradering
+        var city = document.getElementById("cityGFX");
+        city.textContent += "🏠";//🏭⛪🏬🏦🏢🏪
+        moneyForDevelopment++;
     }
 
     if (timestamp >= last + 1000) {
@@ -161,14 +175,14 @@ function createCard(upgrade) {
     header.classList.add('title');
     const cost = document.createElement('p');
 
-    header.textContent = `${upgrade.name}, +${upgrade.amount} per sekund.`;
+    header.textContent = `${upgrade.name}, +${upgrade.amount} settler.`;
     cost.textContent = `Köp för ${upgrade.cost} benbitar.`;
 
     card.addEventListener('click', (e) => {
         if (money >= upgrade.cost) {
             moneyPerClick++;
             money -= upgrade.cost;
-            upgrade.cost *= 1.5;
+            upgrade.cost *= 1.15;
             cost.textContent = 'Köp för ' + upgrade.cost + ' benbitar';
             moneyPerSecond += upgrade.amount;
             message('Grattis du har lockat till dig fler besökare!', 'success');
