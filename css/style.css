@@ -112,6 +112,9 @@ footer {
     padding-left: 1rem;
     padding-right: 1rem;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    column-gap: 5rem ;
 }
 @media (min-width: 36rem) {
     .container {
@@ -158,7 +161,6 @@ footer {
 
 .canvasClass {
     width: 100%;
-    height: 15%;
     padding: 2%;
     border: 5px solid black;
     image-rendering:pixelated;

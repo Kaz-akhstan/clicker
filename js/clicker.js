@@ -13,6 +13,8 @@ const mpsTracker = document.querySelector('#mps'); // money per second
 const mpcTracker = document.querySelector('#mpc'); // money per click
 const upgradeList = document.querySelector('#upgradelist');
 const msgbox = document.querySelector('#msgbox');
+const moneybox = document.querySelector('#moneybox');
+const epbTracker = document.querySelector("#effBonus");
 
 /* Följande variabler använder vi för att hålla reda på hur mycket pengar som
  * spelaren, har och tjänar.
@@ -31,6 +33,12 @@ var xPos = 0;
 var yPos = 0;
 var xSize = 16;
 var ySize = 16;
+let buildType = 0;
+let building = 0;
+
+let buildings = 2;
+let buildLista = [0, 99, 0];
+let efficientPlacementBonus = 1;
 
 let achievementTest = false;
 
@@ -48,7 +56,8 @@ clickerButton.addEventListener(
     'click',
     () => {
         // vid click öka score med 1
-        money += moneyPerClick;
+        money += moneyPerClick * efficientPlacementBonus;
+    //    visualMoney('+' + moneyPerClick, 'achievement');
         // console.log(clicker.score);
     },
     false
@@ -67,6 +76,8 @@ function step(timestamp) {
     moneyTracker.textContent = Math.round(money);
     mpsTracker.textContent = moneyPerSecond;
     mpcTracker.textContent = moneyPerClick;
+    epbTracker.textContent = efficientPlacementBonus.toFixed(2);
+
 
     if(moneyPerSecond >= moneyForDevelopment) //Visual city development
     {
@@ -82,11 +93,9 @@ function step(timestamp) {
         var img = document.getElementById("house");
         ctx.drawImage(img, xPos, yPos, xSize, ySize);
         xPos += xSize;
+        moneyForDevelopment++;
         */
        //Lägg till specifik husdesign beroende på uppgradering
-        var city = document.getElementById("cityGFX");
-        city.textContent += "🏠";//🏭⛪🏬🏦🏢🏪
-        moneyForDevelopment++;
     }
 
     if (timestamp >= last + 1000) {
@@ -134,19 +143,22 @@ window.addEventListener('load', (event) => {
  */
 upgrades = [
     {
-        name: 'Fin sop',
+        name: 'Hus',
         cost: 10,
         amount: 1,
+        building: 0,
     },
     {
-        name: 'Spade',
+        name: 'Kyrka',
         cost: 100,
         amount: 10,
+        building: 1,
     },
     {
-        name: 'Hjälpreda',
+        name: 'Fabrik',
         cost: 1000,
         amount: 100,
+        building: 2,
     },
 ];
 
@@ -183,9 +195,42 @@ function createCard(upgrade) {
             moneyPerClick++;
             money -= upgrade.cost;
             upgrade.cost *= 1.15;
+            upgrade.cost = Math.round(upgrade.cost);
             cost.textContent = 'Köp för ' + upgrade.cost + ' benbitar';
             moneyPerSecond += upgrade.amount;
             message('Grattis du har lockat till dig fler besökare!', 'success');
+            buildType = upgrade.building;
+            var city = document.getElementById("cityGFX");
+            switch(buildType)
+            {
+                case 0:
+                    city.textContent += "🏠";
+                    buildings++;
+                    buildLista[buildings] = 0;
+                    break;
+                case 1:
+                    city.textContent += "⛪";
+                    buildings++;
+                    buildLista[buildings] = 1;
+                    if(buildLista[buildings - 1] == 0 && buildLista[buildings - 2] == 0)
+                    {
+                        efficientPlacementBonus *= 1.05;
+                    }
+                    break;
+                case 2:
+                    city.textContent += "🏭";
+                    buildings++;
+                    buildLista[buildings] = 2;
+                    if(buildLista[buildings - 1] == 0)
+                    {
+                        efficientPlacementBonus *= 0.95;
+                    }
+                    if(buildLista[buildings - 1] == 2)
+                    {
+                        efficientPlacementBonus *= 1.10;
+                    }
+                    break;
+            }//🏭⛪🏬🏦🏢🏪🏡🏠🌃🏤
         } else {
             message('Du har inte råd.', 'warning');
         }
@@ -211,4 +256,14 @@ function message(text, type) {
     setTimeout(() => {
         p.parentNode.removeChild(p);
     }, 2000);
+}
+
+function visualMoney(text, type) {
+    const p = document.createElement('p');
+    p.classList.add(type);
+    p.textContent = text;
+    msgbox.appendChild(p);
+    setTimeout(() => {
+        p.parentNode.removeChild(p);
+    }, 500);
 }
