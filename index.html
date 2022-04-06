@@ -10,46 +10,57 @@
 </head>
 
 <body>
-    <main class="container">
-        <header>
-            <!-- 
-            <div class="img-container" id="bilder">
-                <img src="img/house.png" id="house" alt="Fossil">
-            </div>
-            <canvas id="displayCanvas" class="canvasClass"></canvas>
-             -->
-            <div class="canvasClass" id="cityGFX">🏠🏰🏠</div>
-            <h1>Expiditionen</h1>
-            <p>Med entusiasm och bara händer ger du dig ut i jakten på fossil till ditt museum.</p>
-            <p>Värva hjälpredor och gräv dig till nya upptäckter.</p>
-            <p>Hur många besökare kan du få?</p>
-        </header>
-        <section class="game">
-            <div class="game-hud">
-                <ul class="game-currency">
-                    <li class="item">
-                        <h1>Budget: <span id="money"></span></h1>
-                    </li>
-                    <li class="item">
-                        <h1>Settlers: <span id="mps"></span></h1>
-                    </li>
-                    <li class="item">
-                        <h1>Development: <span id="mpc"></span></h1>
-                    </li>
-                    <li class="item">
-                        <h1>Effektiv Placering Bonus: <span id="effBonus"></span></h1>
-                    </li>
-                </ul>
-                <div class="game-button">
-                    <button id="click">Sopa</button>
-                </div>
-            </div>
+    <main>
+        <div class="upgrade-bar">
             <div class="w-100">
-                <h1>Uppgraderingar</h1>
+                <h1>Utbyggnad</h1>
                 <div id="upgradelist"></div>
             </div>
+        </div>
+        <div class="container">
+            <header>
+                <!-- 
+                <div class="img-container" id="bilder">
+                    <img src="img/house.png" id="house" alt="Fossil">
+                </div>
+                <canvas id="displayCanvas" class="canvasClass"></canvas>
+                 -->
+                <div class="canvasClass" id="cityGFX">🏠🏰🏠</div>
+                <h1>Expiditionen</h1>
+                <p>Med entusiasm och bara händer ger du dig ut i jakten på fossil till ditt museum.</p>
+                <p>Värva hjälpredor och gräv dig till nya upptäckter.</p>
+                <p>Hur många besökare kan du få?</p>
+                <center>
+                    <div class="game-button">
+                        <button id="click">Jobba</button>
+                    </div>
+                </center>
+            </header>
+            <section class="game">
+                <div class="game-hud">
+                    <ul class="game-currency">
+                        <li class="item">
+                            <h1>Budget: <span id="money"></span></h1>
+                        </li>
+                        <li class="item">
+                            <h1>Kolonister: <span id="mps"></span></h1>
+                        </li>
+                        <li class="item">
+                            <h1>Utveckling: <span id="mpc"></span></h1>
+                        </li>
+                        <li class="item">
+                            <h1>Effektiv Placering Bonus: <span id="effBonus"></span></h1>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="tech-bar">
+            <div class="v-100">
+                <h1>Teknologi</h1>
+                <div id="techlist"></div>
             </div>
-        </section>
+        </div>
     </main>
     <div id="msgbox"></div>
     <footer class="container">

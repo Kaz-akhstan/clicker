@@ -15,6 +15,7 @@ const upgradeList = document.querySelector('#upgradelist');
 const msgbox = document.querySelector('#msgbox');
 const moneybox = document.querySelector('#moneybox');
 const epbTracker = document.querySelector("#effBonus");
+const techList = document.querySelector('#techlist');
 
 /* Följande variabler använder vi för att hålla reda på hur mycket pengar som
  * spelaren, har och tjänar.
@@ -78,26 +79,6 @@ function step(timestamp) {
     mpcTracker.textContent = moneyPerClick;
     epbTracker.textContent = efficientPlacementBonus.toFixed(2);
 
-
-    if(moneyPerSecond >= moneyForDevelopment) //Visual city development
-    {
-        /*
-        var img = document.createElement("img");
-        img.src = "img/blue.png"
-        img.classList.add = "img-display";
-        document.getElementById("bilder").appendChild(img);
-        */
-        /*
-        var c = document.getElementById("displayCanvas");
-        var ctx = c.getContext("2d");
-        var img = document.getElementById("house");
-        ctx.drawImage(img, xPos, yPos, xSize, ySize);
-        xPos += xSize;
-        moneyForDevelopment++;
-        */
-       //Lägg till specifik husdesign beroende på uppgradering
-    }
-
     if (timestamp >= last + 1000) {
         money += moneyPerSecond;
         last = timestamp;
@@ -131,6 +112,9 @@ window.addEventListener('load', (event) => {
     upgrades.forEach((upgrade) => {
         upgradeList.appendChild(createCard(upgrade));
     });
+    techs.forEach((tech) => {
+        techList.appendChild(createCard(tech));
+    });
     window.requestAnimationFrame(step);
 });
 
@@ -162,6 +146,19 @@ upgrades = [
     },
 ];
 
+techs = [
+    {
+        name: 'Brunn',
+        cost: 50,
+        amount: 5,
+    },
+    {
+        name: 'Vägar',
+        cost: 100,
+        amount: 10,
+    },
+]
+
 /* createCard är en funktion som tar ett upgrade objekt som parameter och skapar
  * ett html kort för det.
  * För att skapa nya html element så används document.createElement(), elementen
@@ -188,7 +185,7 @@ function createCard(upgrade) {
     const cost = document.createElement('p');
 
     header.textContent = `${upgrade.name}, +${upgrade.amount} settler.`;
-    cost.textContent = `Köp för ${upgrade.cost} benbitar.`;
+    cost.textContent = `Köp för ${upgrade.cost} mynt.`;
 
     card.addEventListener('click', (e) => {
         if (money >= upgrade.cost) {
@@ -196,9 +193,9 @@ function createCard(upgrade) {
             money -= upgrade.cost;
             upgrade.cost *= 1.15;
             upgrade.cost = Math.round(upgrade.cost);
-            cost.textContent = 'Köp för ' + upgrade.cost + ' benbitar';
+            cost.textContent = 'Köp för ' + upgrade.cost + ' mynt';
             moneyPerSecond += upgrade.amount;
-            message('Grattis du har lockat till dig fler besökare!', 'success');
+            message('Grattis du har lockat till dig fler kolonister!', 'success');
             buildType = upgrade.building;
             var city = document.getElementById("cityGFX");
             switch(buildType)
@@ -214,7 +211,7 @@ function createCard(upgrade) {
                     buildLista[buildings] = 1;
                     if(buildLista[buildings - 1] == 0 && buildLista[buildings - 2] == 0)
                     {
-                        efficientPlacementBonus *= 1.05;
+                        efficientPlacementBonus *= 1.1;
                     }
                     break;
                 case 2:
@@ -227,7 +224,7 @@ function createCard(upgrade) {
                     }
                     if(buildLista[buildings - 1] == 2)
                     {
-                        efficientPlacementBonus *= 1.10;
+                        efficientPlacementBonus *= 1.25;
                     }
                     break;
             }//🏭⛪🏬🏦🏢🏪🏡🏠🌃🏤

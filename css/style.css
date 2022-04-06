@@ -60,6 +60,10 @@ select {
     font: inherit;
 }
 
+button {
+    border-radius: 50%;
+}
+
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
     html:focus-within {
@@ -106,13 +110,73 @@ footer {
  * en centrerad layout.
  * Layout styrs även här att fungera skapligt med olika devices.
  */
+
+main {
+    display: flex;
+    background-color: #101010;
+}
+
+.upgrade-bar {
+    width: 5%;
+    height: 100vh;
+    position: relative;
+    left: 0;
+    top: 0;
+    transition: .5s;
+    background-color: #272727;
+    padding: 0 2%;
+}
+
+.w-100 {
+    display: none;
+    transition: .5s;
+    color: #dfdfdf;
+}
+
+.upgrade-bar:hover{
+    width: 25%;
+    transition: .5s;
+}
+
+.upgrade-bar:hover .w-100{
+    display: block;
+    transition: .5s;
+}
+
+.tech-bar {
+    width: 5%;
+    height: 100vh;
+    position: relative;
+    right: 0;
+    top: 0;
+    transition: .5s;
+    background-color: #272727;
+    padding: 0 2%;
+}
+
+.v-100 {
+    display: none;
+    transition: .5s;
+    color: #dfdfdf;
+}
+
+.tech-bar:hover{
+    width: 25%;
+    transition: .5s;
+}
+
+.tech-bar:hover .v-100{
+    display: block;
+    transition: .5s;
+}
+
 .container {
     margin-left: auto;
     margin-right: auto;
     padding-left: 1rem;
     padding-right: 1rem;
-    width: 100%;
-    display: flex;
+    width: 90%;
+    display: block;
     justify-content: space-between;
     column-gap: 5rem ;
 }
@@ -162,7 +226,8 @@ footer {
 .canvasClass {
     width: 100%;
     padding: 2%;
-    border: 5px solid black;
+    border: 5px solid rgb(100, 100, 100);
+    border-radius: 25px;
     image-rendering:pixelated;
     background-image: url("../img/background.png");
     background-size: 25%;
@@ -234,14 +299,20 @@ footer {
     border: 1px solid #646464;
     margin: 0.5rem 0;
     padding: 1rem 0.5rem;
+    border-radius: 1rem;
 }
 
 .card:hover {
-    background-color: #dfdfdf;
+    background-color: #888888;
+    transition: .1s;
 }
 /* klassen används på kortets titel, font-weight: 600 gör fonten fetare, en normal
  * font vikt är oftast 400
  */
 .title {
     font-weight: 600;
+}
+
+p, h1 {
+    color: #dfdfdf;
 }
