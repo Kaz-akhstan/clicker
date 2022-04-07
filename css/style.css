@@ -60,6 +60,14 @@ select {
     font: inherit;
 }
 
+h1, h2, h3, p, button {
+    font-family: 'Cardo', serif;
+}
+
+h2, h3 {
+    color: #dfdfdf;
+}
+
 button {
     border-radius: 50%;
 }
@@ -95,7 +103,6 @@ body {
     flex-direction: column;
     background-color: #f8f8f8;
     color: #121212;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 /* För att göra footern sticky så har vi flex på bodyn och då räcker det med 
  * margin-top auto här.
@@ -125,6 +132,7 @@ main {
     transition: .5s;
     background-color: #272727;
     padding: 0 2%;
+    box-shadow: 5px 0px 10px 5px #000000;
 }
 
 .w-100 {
@@ -152,6 +160,7 @@ main {
     transition: .5s;
     background-color: #272727;
     padding: 0 2%;
+    box-shadow: -5px 0px 10px 5px #000000;
 }
 
 .v-100 {
@@ -171,8 +180,7 @@ main {
 }
 
 .container {
-    margin-left: auto;
-    margin-right: auto;
+    margin: 2rem auto;
     padding-left: 1rem;
     padding-right: 1rem;
     width: 90%;
@@ -210,6 +218,8 @@ main {
        width: 100%;
        display: flex;
        justify-content: center;
+       margin-right: auto;
+       margin-left: auto;
    }
 }
 /* centrera bilden */

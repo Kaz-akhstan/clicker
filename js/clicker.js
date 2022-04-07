@@ -42,6 +42,10 @@ let buildLista = [0, 99, 0];
 let efficientPlacementBonus = 1;
 
 let achievementTest = false;
+let medeltidUnlock = false;
+let renaissanceUnlock = false;
+let IndustrialUnlock = false;
+let atomicUnlock = false;
 
 /* Med ett valt element, som knappen i detta fall så kan vi skapa listeners
  * med addEventListener så kan vi lyssna på ett specifikt event på ett html-element
@@ -88,10 +92,10 @@ function step(timestamp) {
     // achievements. Titta dock på upgrades arrayen och gör något rimligare om du
     // vill ha achievements.
     // på samma sätt kan du även dölja uppgraderingar som inte kan köpas
-    if (moneyPerClick == 10 && !achievementTest) {
+    /*if (moneyPerClick >= 10 && !achievementTest) {
         achievementTest = true;
         message('Du har hittat en FOSSIL!', 'achievement');
-    }
+    }*/
 
     window.requestAnimationFrame(step);
 }
@@ -110,10 +114,16 @@ function step(timestamp) {
 window.addEventListener('load', (event) => {
     console.log('page is fully loaded');
     upgrades.forEach((upgrade) => {
-        upgradeList.appendChild(createCard(upgrade));
+        if(upgrade.unlocked)
+        {
+            upgradeList.appendChild(createCard(upgrade));
+        }
     });
     techs.forEach((tech) => {
-        techList.appendChild(createCard(tech));
+        if (tech.unlocked)
+        {
+            techList.appendChild(createCard(tech));
+        }
     });
     window.requestAnimationFrame(step);
 });
@@ -127,22 +137,32 @@ window.addEventListener('load', (event) => {
  */
 upgrades = [
     {
-        name: 'Hus',
+        name: 'Farm',
         cost: 10,
         amount: 1,
         building: 0,
+        unlocked: 1,
+    },
+    {
+        name: 'Hus',
+        cost: 50,
+        amount: 5,
+        building: 1,
+        unlocked: 1,
     },
     {
         name: 'Kyrka',
         cost: 100,
         amount: 10,
-        building: 1,
+        building: 2,
+        unlocked: 1,
     },
     {
         name: 'Fabrik',
         cost: 1000,
         amount: 100,
-        building: 2,
+        building: 3,
+        unlocked: 0,
     },
 ];
 
@@ -150,12 +170,60 @@ techs = [
     {
         name: 'Brunn',
         cost: 50,
-        amount: 5,
+        clicks: 1,
+        unlocked: 1,
     },
     {
         name: 'Vägar',
         cost: 100,
-        amount: 10,
+        clicks: 2,
+        unlocked: 1,
+    },
+    {
+        name: 'Brons',
+        cost: 200,
+        clicks: 4,
+        unlocked: 1,
+    },
+    {
+        name: 'Medeltiden',
+        cost: 500,
+        clicks: 8,
+        unlock: 1,
+        unlocked: 1,
+    },
+    {
+        name: 'Järn',
+        cost: 750,
+        clicks: 4,
+        unlocked: 0,
+    },
+    {
+        name: 'Hästar',
+        cost: 750,
+        clicks: 4,
+        unlocked: 0,
+    },
+    {
+        name: 'Renässansen',
+        cost: 1000,
+        clicks: 16,
+        unlock: 2,
+        unlocked: 0,
+    },
+    {
+        name: 'Industriella Revolutionen',
+        cost: 10000,
+        clicks: 32,
+        unlock: 3,
+        unlocked: 0,
+    },
+    {
+        name: 'Kärnåldern',
+        cost: 100000,
+        clicks: 64,
+        unlock: 4,
+        unlocked: 0,
     },
 ]
 
@@ -183,38 +251,68 @@ function createCard(upgrade) {
     const header = document.createElement('p');
     header.classList.add('title');
     const cost = document.createElement('p');
-
-    header.textContent = `${upgrade.name}, +${upgrade.amount} settler.`;
+    if (upgrade.amount)
+    {
+        header.textContent = `${upgrade.name}, +${upgrade.amount} kolonister.`;
+    }
+    else 
+    {
+        header.textContent = `${upgrade.name}, +${upgrade.clicks} utveckling.`;
+    }
     cost.textContent = `Köp för ${upgrade.cost} mynt.`;
 
     card.addEventListener('click', (e) => {
         if (money >= upgrade.cost) {
-            moneyPerClick++;
             money -= upgrade.cost;
-            upgrade.cost *= 1.15;
+            upgrade.cost *= 1.25;
             upgrade.cost = Math.round(upgrade.cost);
             cost.textContent = 'Köp för ' + upgrade.cost + ' mynt';
-            moneyPerSecond += upgrade.amount;
+            moneyPerSecond += upgrade.amount ? upgrade.amount : 0;
+            moneyPerClick += upgrade.clicks ? upgrade.clicks : 0;
             message('Grattis du har lockat till dig fler kolonister!', 'success');
             buildType = upgrade.building;
             var city = document.getElementById("cityGFX");
+            if(upgrade.unlock)
+            {
+                message('Du har uppnått ' + upgrade.name + '!', 'achievement');
+                switch(upgrade.unlock)
+                {
+                    case 1:
+                        techList.appendChild(createCard(techs[4]));
+                        techList.appendChild(createCard(techs[5]));
+                        techList.appendChild(createCard(techs[6]));
+                        upgradeList.appendChild(createCard(upgrades[3]))
+                        break;
+                    case 2:
+                        break;
+                }
+            }
+            if(upgrade.clicks)
+            {
+                card.remove();
+            }
             switch(buildType)
             {
                 case 0:
-                    city.textContent += "🏠";
+                    city.textContent += "⛺";
                     buildings++;
                     buildLista[buildings] = 0;
                     break;
                 case 1:
+                    city.textContent += "🏠";
+                    buildings++;
+                    buildLista[buildings] = 1;
+                    break;
+                case 2:
                     city.textContent += "⛪";
                     buildings++;
                     buildLista[buildings] = 1;
-                    if(buildLista[buildings - 1] == 0 && buildLista[buildings - 2] == 0)
+                    if(buildLista[buildings - 1] == 1 && buildLista[buildings - 2] == 1)
                     {
                         efficientPlacementBonus *= 1.1;
                     }
                     break;
-                case 2:
+                case 3:
                     city.textContent += "🏭";
                     buildings++;
                     buildLista[buildings] = 2;
@@ -227,7 +325,7 @@ function createCard(upgrade) {
                         efficientPlacementBonus *= 1.25;
                     }
                     break;
-            }//🏭⛪🏬🏦🏢🏪🏡🏠🌃🏤
+            }//🏭⛪🏬🏦🏢🏪🏡🏠🌃🏤⛺
         } else {
             message('Du har inte råd.', 'warning');
         }
