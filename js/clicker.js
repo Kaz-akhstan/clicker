@@ -16,6 +16,7 @@ const msgbox = document.querySelector('#msgbox');
 const moneybox = document.querySelector('#moneybox');
 const epbTracker = document.querySelector("#effBonus");
 const techList = document.querySelector('#techlist');
+const mainDiv = document.querySelector('#mainDiv');
 
 /* Följande variabler använder vi för att hålla reda på hur mycket pengar som
  * spelaren, har och tjänar.
@@ -62,12 +63,16 @@ clickerButton.addEventListener(
     () => {
         // vid click öka score med 1
         money += moneyPerClick * efficientPlacementBonus;
-    //    visualMoney('+' + moneyPerClick, 'achievement');
+        fallingMoney();
+        visualMoney('+' + moneyPerClick, 'money');
         // console.log(clicker.score);
     },
     false
 );
 
+function fallingMoney()
+{
+}
 /* För att driva klicker spelet så kommer vi att använda oss av en metod som heter
  * requestAnimationFrame.
  * requestAnimationFrame försöker uppdatera efter den refresh rate som användarens
@@ -328,7 +333,7 @@ function createCard(upgrade) {
             upgrade.cost = Math.round(upgrade.cost);
             cost.textContent = 'Köp för ' + upgrade.cost + ' mynt';
             moneyPerSecond += upgrade.amount ? upgrade.amount : 0;
-            moneyPerClick += upgrade.clicks ? upgrade.clicks : 0;
+            moneyPerClick *= upgrade.clicks ? upgrade.clicks : 1;
             message('Grattis du har lockat till dig fler kolonister!', 'success');
             buildType = upgrade.building;
             var city = document.getElementById("cityGFX");
@@ -355,6 +360,11 @@ function createCard(upgrade) {
                         techList.appendChild(createCard(techs[13]));
                         techList.appendChild(createCard(techs[14]));
                         techList.appendChild(createCard(techs[15]));
+                        break;
+                    case 4:
+                        techList.appendChild(createCard(techs[16]));
+                        techList.appendChild(createCard(techs[17]));
+                        techList.appendChild(createCard(techs[18]));
                         break;
                 }
             }

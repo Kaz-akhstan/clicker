@@ -97,7 +97,7 @@ h2, h3 {
 body {
     display: flex;
     flex-direction: column;
-    background-color: #f8f8f8;
+    background-color: #272727;
     color: #121212;
 }
 /* För att göra footern sticky så har vi flex på bodyn och då räcker det med 
@@ -128,7 +128,7 @@ main {
     transition: .5s;
     background-color: #272727;
     padding: 0 2%;
-    box-shadow: 5px 0px 10px 5px #000000;
+    box-shadow: 5px -15px 10px 5px #000000;
 }
 
 .w-100 {
@@ -156,7 +156,7 @@ main {
     transition: .5s;
     background-color: #272727;
     padding: 0 2%;
-    box-shadow: -5px 0px 10px 5px #000000;
+    box-shadow: -5px -15px 10px 5px #000000;
 }
 
 .v-100 {
@@ -177,8 +177,8 @@ main {
 
 .container {
     margin: 2rem auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
     width: 100%;
     justify-content: space-between;
     column-gap: 5rem ;
@@ -197,7 +197,29 @@ main {
 
 .clickButton {
     border-radius: .5rem;
-    width: 50% !important;
+    image-rendering: pixelated;
+}
+
+.clickButton:hover {
+    width: 20% !important;
+    height: auto !important;
+    cursor: pointer;
+    transition: .05s;
+}
+
+.clickButton:active {
+    width: 17% !important;
+    transition: .05s;
+}
+
+.plus1 {
+    color: white;
+    font-weight: 900;
+    font-size: larger;
+    margin: 2rem;
+    text-align: center;
+    position: relative;
+    opacity: 0;
 }
 
 /* centrera bilden */
@@ -250,9 +272,11 @@ main {
 */
 #msgbox {
     position: fixed;
-    right: 2vmin;
+    right: 15vmin;
     bottom: 2vmin;
-    min-width: 16rem;
+    font-weight: 900;
+    font-size: x-large;
+    text-align: center;
 }
 
 #msgbox > p {
@@ -274,6 +298,24 @@ main {
 .achievement {
     color: #121212;
     background-color: rebeccapurple;
+}
+
+.money {
+    color: #121212;
+    background-color: #47cbff;
+    animation: floatingNum .5s;
+    position: relative;
+}
+
+@keyframes floatingNum {
+    0%{
+        top: 0rem;
+        opacity: 1;
+    }
+    100%{
+        top: -10rem;
+        opacity: 0;
+    }
 }
 
 /* dessa kort används för spelets uppgraderingar 
