@@ -168,7 +168,7 @@ upgrades = [
 
 techs = [
     {
-        name: 'Brunn',
+        name: 'Brunnar',
         cost: 50,
         clicks: 2,
         unlocked: 1,
@@ -205,6 +205,12 @@ techs = [
         unlocked: 0,
     },
     {
+        name: 'Valuta',
+        cost: 750,
+        clicks: 2,
+        unlocked: 0,
+    },
+    {
         name: 'Renässansen',
         cost: 1000,
         clicks: 4,
@@ -215,7 +221,18 @@ techs = [
         name: 'Krut',
         cost: 1000,
         clicks: 2,
-        unlock: 2,
+        unlocked: 0,
+    },
+    {
+        name: 'Metallgjutning',
+        cost: 1000,
+        clicks: 2,
+        unlocked: 0,
+    },
+    {
+        name: 'Advancerad Matematik',
+        cost: 1000,
+        clicks: 2,
         unlocked: 0,
     },
     {
@@ -226,10 +243,46 @@ techs = [
         unlocked: 0,
     },
     {
+        name: 'Industrialisering',
+        cost: 1000,
+        clicks: 2,
+        unlocked: 0,
+    },
+    {
+        name: 'Ångkraft',
+        cost: 1000,
+        clicks: 2,
+        unlocked: 0,
+    },
+    {
+        name: 'Stål',
+        cost: 1000,
+        clicks: 2,
+        unlocked: 0,
+    },
+    {
         name: 'Kärnåldern',
         cost: 100000,
         clicks: 4,
         unlock: 4,
+        unlocked: 0,
+    },
+    {
+        name: 'Datorer',
+        cost: 1000,
+        clicks: 2,
+        unlocked: 0,
+    },
+    {
+        name: 'Sateliter',
+        cost: 1000,
+        clicks: 2,
+        unlocked: 0,
+    },
+    {
+        name: 'Kärnkraft',
+        cost: 1000,
+        clicks: 2,
         unlocked: 0,
     },
 ]
@@ -275,7 +328,7 @@ function createCard(upgrade) {
             upgrade.cost = Math.round(upgrade.cost);
             cost.textContent = 'Köp för ' + upgrade.cost + ' mynt';
             moneyPerSecond += upgrade.amount ? upgrade.amount : 0;
-            moneyPerClick *= upgrade.clicks ? upgrade.clicks : 0;
+            moneyPerClick += upgrade.clicks ? upgrade.clicks : 0;
             message('Grattis du har lockat till dig fler kolonister!', 'success');
             buildType = upgrade.building;
             var city = document.getElementById("cityGFX");
@@ -288,9 +341,20 @@ function createCard(upgrade) {
                         techList.appendChild(createCard(techs[4]));
                         techList.appendChild(createCard(techs[5]));
                         techList.appendChild(createCard(techs[6]));
+                        techList.appendChild(createCard(techs[7]));
                         upgradeList.appendChild(createCard(upgrades[3]))
                         break;
                     case 2:
+                        techList.appendChild(createCard(techs[8]));
+                        techList.appendChild(createCard(techs[9]));
+                        techList.appendChild(createCard(techs[10]));
+                        techList.appendChild(createCard(techs[11]));
+                        break;
+                    case 3:
+                        techList.appendChild(createCard(techs[12]));
+                        techList.appendChild(createCard(techs[13]));
+                        techList.appendChild(createCard(techs[14]));
+                        techList.appendChild(createCard(techs[15]));
                         break;
                 }
             }

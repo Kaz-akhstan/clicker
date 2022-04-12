@@ -68,10 +68,6 @@ h2, h3 {
     color: #dfdfdf;
 }
 
-button {
-    border-radius: 50%;
-}
-
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
     html:focus-within {
@@ -183,45 +179,27 @@ main {
     margin: 2rem auto;
     padding-left: 1rem;
     padding-right: 1rem;
-    width: 90%;
-    display: block;
+    width: 100%;
     justify-content: space-between;
     column-gap: 5rem ;
 }
-@media (min-width: 36rem) {
-    .container {
-        max-width: 34rem;
-    }
-}
-@media (min-width: 48rem) {
-    .container {
-        max-width: 44rem;
-    }
-}
-@media (min-width: 62rem) {
-    .container {
-        max-width: 54rem;
-    }
-}
+
 /* Här finns ett par regler för att responsivt anpassa designen på sidan. 
  * Vi gömmer headern på mobil för att spara plats och vänder på spelet så att 
  * knappen blir överst på sidan.
  */
-@media (max-width: 36rem) {
-   header {
-       display: none;
-   }
-   .game-hud {
-        flex-direction: column-reverse;
-   }
-   .game-button {
-       width: 100%;
-       display: flex;
-       justify-content: center;
-       margin-right: auto;
-       margin-left: auto;
-   }
+ .game-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.clickButton {
+    border-radius: .5rem;
+    width: 50% !important;
+}
+
 /* centrera bilden */
 .img-container {
     width: 50%;
@@ -325,4 +303,28 @@ main {
 
 p, h1 {
     color: #dfdfdf;
+}
+
+@media (min-width: 36rem) {
+    .container {
+        max-width: 34rem;
+    }
+}
+@media (min-width: 48rem) {
+    .container {
+        max-width: 44rem;
+    }
+}
+@media (min-width: 62rem) {
+    .container {
+        max-width: 54rem;
+    }
+}
+@media (max-width: 36rem) {
+   header {
+       display: none;
+   }
+   .game-hud {
+        flex-direction: column-reverse;
+   }
 }
