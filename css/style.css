@@ -129,11 +129,12 @@ main {
     background-color: #272727;
     padding: 0 2%;
     box-shadow: 5px -15px 10px 5px #000000;
+    transition: .5s;
 }
 
 .w-100 {
-    display: none;
     transition: .5s;
+    display: none;
     color: #dfdfdf;
 }
 
@@ -157,6 +158,7 @@ main {
     background-color: #272727;
     padding: 0 2%;
     box-shadow: -5px -15px 10px 5px #000000;
+    transition: .5s;
 }
 
 .v-100 {
@@ -222,17 +224,6 @@ main {
     opacity: 0;
 }
 
-/* centrera bilden */
-.img-container {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    display: flex;
-}
-
 .canvasClass {
     width: 100%;
     padding: 2%;
@@ -242,6 +233,11 @@ main {
     background-image: url("../img/background.png");
     background-size: 25%;
     font-size: larger;
+    line-height: 0.75rem;
+}
+
+.canvasClass:hover {
+    line-height: normal;
 }
 
 .game {
