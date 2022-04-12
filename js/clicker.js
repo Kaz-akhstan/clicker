@@ -38,7 +38,7 @@ let buildType = 0;
 let building = 0;
 
 let buildings = 2;
-let buildLista = [0, 99, 0];
+let buildLista = [1, 99, 1];
 let efficientPlacementBonus = 1;
 
 let achievementTest = false;
@@ -170,7 +170,7 @@ techs = [
     {
         name: 'Brunn',
         cost: 50,
-        clicks: 1,
+        clicks: 2,
         unlocked: 1,
     },
     {
@@ -182,46 +182,53 @@ techs = [
     {
         name: 'Brons',
         cost: 200,
-        clicks: 4,
+        clicks: 2,
         unlocked: 1,
     },
     {
         name: 'Medeltiden',
         cost: 500,
-        clicks: 8,
+        clicks: 4,
         unlock: 1,
         unlocked: 1,
     },
     {
         name: 'Järn',
         cost: 750,
-        clicks: 4,
+        clicks: 2,
         unlocked: 0,
     },
     {
         name: 'Hästar',
         cost: 750,
-        clicks: 4,
+        clicks: 2,
         unlocked: 0,
     },
     {
         name: 'Renässansen',
         cost: 1000,
-        clicks: 16,
+        clicks: 4,
+        unlock: 2,
+        unlocked: 0,
+    },
+    {
+        name: 'Krut',
+        cost: 1000,
+        clicks: 2,
         unlock: 2,
         unlocked: 0,
     },
     {
         name: 'Industriella Revolutionen',
         cost: 10000,
-        clicks: 32,
+        clicks: 4,
         unlock: 3,
         unlocked: 0,
     },
     {
         name: 'Kärnåldern',
         cost: 100000,
-        clicks: 64,
+        clicks: 4,
         unlock: 4,
         unlocked: 0,
     },
@@ -268,7 +275,7 @@ function createCard(upgrade) {
             upgrade.cost = Math.round(upgrade.cost);
             cost.textContent = 'Köp för ' + upgrade.cost + ' mynt';
             moneyPerSecond += upgrade.amount ? upgrade.amount : 0;
-            moneyPerClick += upgrade.clicks ? upgrade.clicks : 0;
+            moneyPerClick *= upgrade.clicks ? upgrade.clicks : 0;
             message('Grattis du har lockat till dig fler kolonister!', 'success');
             buildType = upgrade.building;
             var city = document.getElementById("cityGFX");
@@ -309,7 +316,7 @@ function createCard(upgrade) {
                     buildLista[buildings] = 1;
                     if(buildLista[buildings - 1] == 1 && buildLista[buildings - 2] == 1)
                     {
-                        efficientPlacementBonus *= 1.1;
+                        efficientPlacementBonus += 0.1;
                     }
                     break;
                 case 3:
@@ -322,7 +329,7 @@ function createCard(upgrade) {
                     }
                     if(buildLista[buildings - 1] == 2)
                     {
-                        efficientPlacementBonus *= 1.25;
+                        efficientPlacementBonus += 0.25;
                     }
                     break;
             }//🏭⛪🏬🏦🏢🏪🏡🏠🌃🏤⛺
