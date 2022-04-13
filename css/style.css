@@ -35,7 +35,7 @@ html:focus-within {
 
 /* Set core body defaults */
 body {
-    min-height: 100vh;
+    min-height: 100%;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
 }
@@ -122,40 +122,13 @@ footer {
 main {
     display: flex;
     background-color: #101010;
-}
-
-.upgrade-bar {
-    width: 5%;
-    height: 100vh;
-    position: relative;
-    left: 0;
-    top: 0;
-    transition: .5s;
-    background-color: #272727;
-    padding: 0 2%;
-    box-shadow: 5px -15px 10px 5px #000000;
-    transition: .5s;
-}
-
-.w-100 {
-    transition: .5s;
-    display: none;
-    color: #dfdfdf;
-}
-
-.upgrade-bar:hover{
-    width: 25%;
-    transition: .5s;
-}
-
-.upgrade-bar:hover .w-100{
-    display: block;
-    transition: .5s;
+    overflow-x: hidden;
+    height: 100%;
 }
 
 .tech-bar {
-    width: 5%;
-    height: 100vh;
+    width: 10%;
+    min-height: 100vh;
     position: relative;
     right: 0;
     top: 0;
@@ -219,21 +192,11 @@ main {
     transition: .05s;
 }
 
-.plus1 {
-    color: white;
-    font-weight: 900;
-    font-size: larger;
-    margin: 2rem;
-    text-align: center;
-    position: relative;
-    opacity: 0;
-}
-
 .canvasClass {
     width: 100%;
     height: 100%;
     padding: 2%;
-    border: 5px solid rgb(100, 100, 100);
+    border: 2px solid rgb(100, 100, 100);
     border-radius: 25px;
     image-rendering:pixelated;
     background-image: url("../img/background.png");
@@ -249,7 +212,7 @@ main {
     image-rendering:pixelated;
     border-radius: 50px;
     padding: 2%;
-    border: 5px solid rgb(100, 100, 100);
+    border: 2px solid rgb(100, 100, 100);
 }
 
 select {
@@ -261,12 +224,17 @@ select {
     font-family: 'Cardo', serif;
 }
 
+.titleCard {
+    image-rendering: pixelated;
+    width: 500%;
+}
+
 .tileClass {
     width: 20%;
     background-color: #272727b4;
     padding: 1rem 0.5rem;
     text-align: center;
-    border: 1px solid rgb(100, 100, 100);
+    border: 2px solid rgb(100, 100, 100);
     cursor: pointer;
     justify-content: center;
     align-items: center;
@@ -277,7 +245,7 @@ select {
 
 .tileClass:hover {
     background-color: #006b20;
-    border: 1px solid rgb(0, 46, 21);
+    border: 2px solid rgb(0, 46, 21);
 }
 
 .tileClass:active {
@@ -403,10 +371,11 @@ p, h1 {
     }
 }
 @media (max-width: 36rem) {
-   header {
-       display: none;
-   }
    .game-hud {
         flex-direction: column-reverse;
    }
+   .tech-bar:hover{
+    width: 75%;
+    transition: .5s;
+}
 }

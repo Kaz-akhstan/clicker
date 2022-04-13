@@ -11,10 +11,8 @@ const clickerButton = document.querySelector('#click');
 const moneyTracker = document.querySelector('#money');
 const mpsTracker = document.querySelector('#mps'); // money per second
 const mpcTracker = document.querySelector('#mpc'); // money per click
-const upgradeList = document.querySelector('#upgradelist');
 const msgbox = document.querySelector('#msgbox');
 const moneybox = document.querySelector('#moneybox');
-const epbTracker = document.querySelector("#effBonus");
 const techList = document.querySelector('#techlist');
 const mainDiv = document.querySelector('#mainDiv');
 
@@ -28,18 +26,12 @@ const mainDiv = document.querySelector('#mainDiv');
 let money = 0;
 let moneyPerClick = 1;
 let moneyPerSecond = 0;
-let price = 10;
-let row1 = [];
-let row2 = [];
-let row3 = [];
-let row4 = [];
-let row5 = [];
 
 let valueList = [];
 
 let tileList = [];
 let tiles = 25;
-let ownedLand = ["c3"];
+let ownedLand = [13];
 
 let last = 0;
 let cityBuiltLvl = 0;
@@ -54,7 +46,6 @@ let building = 0;
 let builds = ["⛺Farm", "🏠Bostad", "⛪Kyrka"];
 let buildings = 2;
 let buildLista = [1, 99, 1];
-let efficientPlacementBonus = 1;
 
 let achievementTest = false;
 let medeltidUnlock = false;
@@ -76,7 +67,7 @@ clickerButton.addEventListener(
     'click',
     () => {
         // vid click öka score med 1
-        money += moneyPerClick * efficientPlacementBonus;
+        money += moneyPerClick;
         visualMoney('+' + moneyPerClick, 'money');
         // console.log(clicker.score);
     },
@@ -94,8 +85,7 @@ clickerButton.addEventListener(
 function step(timestamp) {
     moneyTracker.textContent = Math.round(money);
     mpsTracker.textContent = moneyPerSecond;
-    mpcTracker.textContent = moneyPerClick;
-    epbTracker.textContent = efficientPlacementBonus.toFixed(2);
+    mpcTracker.textContent = moneyPerClick.toFixed(2);
 
     if (timestamp >= last + 1000) {
         money += moneyPerSecond;
@@ -120,7 +110,7 @@ function expandLandFunc(e)
     let noAdd = false;
     for(var i = 0; i<ownedLand.length; i++)
     {
-        if(ownedLand[i] == e && select != valueList[e-1])
+        if(ownedLand[i] == e && select != valueList[e])
         {
             noAdd = true;
         }
@@ -131,54 +121,70 @@ function expandLandFunc(e)
     }
     else 
     {
-        ownedLand.push(e);
         switch(select)
         {
             case '0':
                 if(money>=upgrades[0].cost)
                 {
                     money -= upgrades[0].cost;
-                    upgrades[0].cost *= 1.25;
+                    upgrades[0].cost *= 1.15;
                     upgrades[0].cost = Math.round(upgrades[0].cost);
                     moneyPerSecond += upgrades[0].amount;
-                    document.getElementById("u0").innerHTML = builds[0] + " " + upgrades[0].cost + " Mynt";
+                    document.getElementById("u0").innerHTML = builds[0] + ": Köp för: " + upgrades[0].cost + " Mynt" + ": Tjänar " + upgrades[0].amount + " Mynt per Sekund";
                     var img = document.createElement('img');
                     img.src="../img/farm.png";
-                    valueList[e-1] = 0;
+                    valueList[e] = 0;
                     document.getElementById(e).appendChild(img);
+                    ownedLand.push(e);
+                }
+                else 
+                {
+                    message('Du har inte råd.', 'warning');
                 }
                 break;
             case '1':
                 if(money>=upgrades[1].cost)
                 {
                     money -= upgrades[1].cost;
-                    upgrades[1].cost *= 1.25;
+                    upgrades[1].cost *= 1.15;
                     upgrades[1].cost = Math.round(upgrades[1].cost);
                     moneyPerSecond += upgrades[1].amount;
-                    document.getElementById("u1").innerHTML = builds[1] + " " + upgrades[1].cost + " Mynt";
+                    document.getElementById("u1").innerHTML = builds[1] + ": Köp för: " + upgrades[1].cost + " Mynt" + ": Tjänar " + upgrades[1].amount + " Mynt per Sekund";
                     var img = document.createElement('img');
                     img.src="../img/house.png";
-                    valueList[e-1] = 1;
+                    valueList[e] = 1;
                     document.getElementById(e).appendChild(img);
+                    ownedLand.push(e);
+                }
+                else
+                {
+                    message('Du har inte råd.', 'warning');
                 }
                 break;
             case '2':
-                var img = document.createElement('img');
-                img.src="../img/kyrka.png";
-                valueList[e-1] = 2;
-                document.getElementById(e).appendChild(img);
+                if(money>=upgrades[2].cost)
+                {
+                    money -= upgrades[2].cost;
+                    upgrades[2].cost *= 1.15;
+                    upgrades[2].cost = Math.round(upgrades[2].cost);
+                    moneyPerSecond += upgrades[2].amount;
+                    document.getElementById("u2").innerHTML = builds[2] + ": Köp för: " + upgrades[2].cost + " Mynt" + ": Tjänar " + upgrades[2].amount + " Mynt per Sekund";
+                    var img = document.createElement('img');
+                    img.src="../img/kyrka.png";
+                    valueList[e] = 2;
+                    document.getElementById(e).appendChild(img);
+                    ownedLand.push(e);
+                }
+                else
+                {
+                    message('Du har inte råd.', 'warning');
+                }
                 break;
         }
     }
 }
 window.addEventListener('load', (event) => {
     console.log('page is fully loaded');
-    upgrades.forEach((upgrade) => {
-        if(upgrade.unlocked)
-        {
-            upgradeList.appendChild(createCard(upgrade));
-        }
-    });
     techs.forEach((tech) => {
         if (tech.unlocked)
         {
@@ -195,7 +201,7 @@ window.addEventListener('load', (event) => {
         var opt = document.createElement('option');
         opt.id = "u"+i;
         opt.value = i;
-        opt.innerHTML = builds[i] + " " + upgrades[i].cost + " Mynt";
+        opt.innerHTML = builds[i] + ": Köp för: " + upgrades[i].cost + " Mynt" + ": Tjänar " + upgrades[i].amount + " Mynt per Sekund";
         document.getElementById("chooseBuild").appendChild(opt);
     }
     var img = document.createElement('img');
@@ -246,119 +252,119 @@ techs = [
     {
         name: 'Brunnar',
         cost: 50,
-        clicks: 2,
+        clicks: 1.25,
         unlocked: 1,
     },
     {
         name: 'Vägar',
         cost: 100,
-        clicks: 2,
+        clicks: 1.25,
         unlocked: 1,
     },
     {
         name: 'Brons',
         cost: 200,
-        clicks: 2,
+        clicks: 1.25,
         unlocked: 1,
     },
     {
         name: 'Medeltiden',
-        cost: 500,
-        clicks: 4,
+        cost: 1000,
+        clicks: 2,
         unlock: 1,
         unlocked: 1,
     },
     {
         name: 'Järn',
-        cost: 750,
-        clicks: 2,
+        cost: 1750,
+        clicks: 1.25,
         unlocked: 0,
     },
     {
         name: 'Hästar',
-        cost: 750,
-        clicks: 2,
+        cost: 2000,
+        clicks: 1.25,
         unlocked: 0,
     },
     {
         name: 'Valuta',
-        cost: 750,
-        clicks: 2,
+        cost: 2500,
+        clicks: 1.25,
         unlocked: 0,
     },
     {
         name: 'Renässansen',
-        cost: 1000,
-        clicks: 4,
+        cost: 5000,
+        clicks: 2,
         unlock: 2,
         unlocked: 0,
     },
     {
         name: 'Krut',
-        cost: 1000,
-        clicks: 2,
+        cost: 6000,
+        clicks: 1.25,
         unlocked: 0,
     },
     {
         name: 'Metallgjutning',
-        cost: 1000,
-        clicks: 2,
+        cost: 7000,
+        clicks: 1.25,
         unlocked: 0,
     },
     {
         name: 'Advancerad Matematik',
-        cost: 1000,
-        clicks: 2,
+        cost: 8000,
+        clicks: 1.25,
         unlocked: 0,
     },
     {
         name: 'Industriella Revolutionen',
         cost: 10000,
-        clicks: 4,
+        clicks: 2,
         unlock: 3,
         unlocked: 0,
     },
     {
         name: 'Industrialisering',
-        cost: 1000,
-        clicks: 2,
+        cost: 15000,
+        clicks: 1.25,
         unlocked: 0,
     },
     {
         name: 'Ångkraft',
-        cost: 1000,
-        clicks: 2,
+        cost: 20000,
+        clicks: 1.25,
         unlocked: 0,
     },
     {
         name: 'Stål',
-        cost: 1000,
-        clicks: 2,
+        cost: 50000,
+        clicks: 1.25,
         unlocked: 0,
     },
     {
         name: 'Kärnåldern',
         cost: 100000,
-        clicks: 4,
+        clicks: 2,
         unlock: 4,
         unlocked: 0,
     },
     {
         name: 'Datorer',
-        cost: 1000,
-        clicks: 2,
+        cost: 150000,
+        clicks: 1.25,
         unlocked: 0,
     },
     {
         name: 'Sateliter',
-        cost: 1000,
-        clicks: 2,
+        cost: 200000,
+        clicks: 1.25,
         unlocked: 0,
     },
     {
         name: 'Kärnkraft',
-        cost: 1000,
-        clicks: 2,
+        cost: 500000,
+        clicks: 1.25,
         unlocked: 0,
     },
 ]
@@ -388,25 +394,14 @@ function createCard(upgrade) {
     const header = document.createElement('p');
     header.classList.add('title');
     const cost = document.createElement('p');
-    if (upgrade.amount)
-    {
-        header.textContent = `${upgrade.name}, +${upgrade.amount} kolonister.`;
-    }
-    else 
-    {
-        header.textContent = `${upgrade.name}, +${upgrade.clicks} utveckling.`;
-    }
+    header.textContent = `${upgrade.name}, +${upgrade.clicks} utveckling.`;
     cost.textContent = `Köp för ${upgrade.cost} mynt.`;
-
     card.addEventListener('click', (e) => {
         if (money >= upgrade.cost) {
             money -= upgrade.cost;
-            upgrade.cost *= 1.25;
-            upgrade.cost = Math.round(upgrade.cost);
             cost.textContent = 'Köp för ' + upgrade.cost + ' mynt';
-            moneyPerSecond += upgrade.amount ? upgrade.amount : 0;
             moneyPerClick *= upgrade.clicks ? upgrade.clicks : 1;
-            message('Grattis du har lockat till dig fler kolonister!', 'success');
+            message('Grattis du har fått fler invånare!', 'success');
             buildType = upgrade.building;
             var city = document.getElementById("cityGFX");
             if(upgrade.unlock)
@@ -419,7 +414,6 @@ function createCard(upgrade) {
                         techList.appendChild(createCard(techs[5]));
                         techList.appendChild(createCard(techs[6]));
                         techList.appendChild(createCard(techs[7]));
-                        upgradeList.appendChild(createCard(upgrades[3]))
                         break;
                     case 2:
                         techList.appendChild(createCard(techs[8]));
@@ -444,41 +438,6 @@ function createCard(upgrade) {
             {
                 card.remove();
             }
-            switch(buildType)
-            {
-                case 0:
-                    city.textContent += "⛺";
-                    buildings++;
-                    buildLista[buildings] = 0;
-                    break;
-                case 1:
-                    city.textContent += "🏠";
-                    buildings++;
-                    buildLista[buildings] = 1;
-                    break;
-                case 2:
-                    city.textContent += "⛪";
-                    buildings++;
-                    buildLista[buildings] = 1;
-                    if(buildLista[buildings - 1] == 1 && buildLista[buildings - 2] == 1)
-                    {
-                        efficientPlacementBonus += 0.1;
-                    }
-                    break;
-                case 3:
-                    city.textContent += "🏭";
-                    buildings++;
-                    buildLista[buildings] = 2;
-                    if(buildLista[buildings - 1] == 0)
-                    {
-                        efficientPlacementBonus *= 0.95;
-                    }
-                    if(buildLista[buildings - 1] == 2)
-                    {
-                        efficientPlacementBonus += 0.25;
-                    }
-                    break;
-            }//🏭⛪🏬🏦🏢🏪🏡🏠🌃🏤⛺
         } else {
             message('Du har inte råd.', 'warning');
         }

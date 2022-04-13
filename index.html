@@ -14,20 +14,12 @@
 
 <body>
     <main>
-        <div class="upgrade-bar">
-            <div class="w-100">
-                <h2>Utbyggnad</h2>
-                <div id="upgradelist"></div>
-            </div>
-        </div>
-        <div class="container" id="mainDiv">
+        <div class="container">
             <header>
-                <!-- 
-                <div class="img-container" id="bilder">
-                    <img src="img/house.png" id="house" alt="Fossil">
+                <div class="titleCard">
+                    <img src="img/title.png" alt="Rikes Clickare">
                 </div>
-                <canvas id="displayCanvas" class="canvasClass"></canvas>
-                 -->
+                <p>Tiden är kommen. Bördan av kronan och landet ligger på dig. Världen runt omkring oss förändras och utvecklas. Kommer vi nå högt eller kommer vi rasa ner i avgrunden? Endast framtiden har svaren.</p>
                  <div class="outerCanvas">
                     <div class="canvasClass" id="landGFX">
                         <div onclick="expandLandFunc(this.id)" class="tileClass" id="1"></div>
@@ -58,7 +50,6 @@
                     </div>
                 </div>
                 <select id="chooseBuild"></select>
-                <h1>Expiditionen</h1>
             </header>
             <section class="game">
                 <div class="game-hud">
@@ -67,13 +58,10 @@
                             <h3>Budget: <span id="money"></span></h3>
                         </li>
                         <li class="item">
-                            <h3>Kolonister: <span id="mps"></span></h3>
+                            <h3>Invånare: <span id="mps"></span></h3>
                         </li>
                         <li class="item">
                             <h3>Utveckling: <span id="mpc"></span></h3>
-                        </li>
-                        <li class="item">
-                            <h3>Effektivitet Bonus: <span id="effBonus"></span></h3>
                         </li>
                     </ul>
                 </div>
