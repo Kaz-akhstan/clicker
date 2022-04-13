@@ -28,38 +28,37 @@
                 </div>
                 <canvas id="displayCanvas" class="canvasClass"></canvas>
                  -->
-                <div class="canvasClass" id="landGFX">
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="a1">1</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="a2">2</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="a3">3</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="a4">4</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="a5">5</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="b1">1</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="b2">2</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="b3">3</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="b4">4</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="b5">5</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="c1">1</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="c2">2</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="c3">3</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="c4">4</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="c5">5</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="d1">1</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="d2">2</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="d3">3</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="d4">4</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="d5">5</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="e1">1</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="e2">2</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="e3">3</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="e4">4</div>
-                    <div onclick="expandLandFunc(this.id)" class="tileClass" id="e5">5</div>
+                 <div class="outerCanvas">
+                    <div class="canvasClass" id="landGFX">
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="1"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="2"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="3"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="4"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="5"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="6"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="7"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="8"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="9"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="10"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="11"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="12"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="13"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="14"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="15"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="16"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="17"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="18"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="19"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="20"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="21"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="22"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="23"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="24"></div>
+                        <div onclick="expandLandFunc(this.id)" class="tileClass" id="25"></div>
+                    </div>
                 </div>
-                <div class="canvasClass" id="cityGFX">🏠🏰🏠</div>
+                <select id="chooseBuild"></select>
                 <h1>Expiditionen</h1>
-                <p>Med entusiasm och bara händer ger du dig ut i jakten på fossil till ditt museum.</p>
-                <p>Värva hjälpredor och gräv dig till nya upptäckter.</p>
-                <p>Hur många besökare kan du få?</p>
             </header>
             <section class="game">
                 <div class="game-hud">
@@ -72,12 +71,6 @@
                         </li>
                         <li class="item">
                             <h3>Utveckling: <span id="mpc"></span></h3>
-                        </li>
-                        <li class="item">
-                            <h3>Livsmedel: <span id="fpc"></span></h3>
-                        </li>
-                        <li class="item">
-                            <h3>Byggnader: <span id="bui"></span></h3>
                         </li>
                         <li class="item">
                             <h3>Effektivitet Bonus: <span id="effBonus"></span></h3>

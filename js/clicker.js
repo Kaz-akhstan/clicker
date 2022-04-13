@@ -34,9 +34,12 @@ let row2 = [];
 let row3 = [];
 let row4 = [];
 let row5 = [];
+
+let valueList = [];
+
 let tileList = [];
 let tiles = 25;
-let ownedLand = [];
+let ownedLand = ["c3"];
 
 let last = 0;
 let cityBuiltLvl = 0;
@@ -48,6 +51,7 @@ var ySize = 16;
 let buildType = 0;
 let building = 0;
 
+let builds = ["⛺Farm", "🏠Bostad", "⛪Kyrka"];
 let buildings = 2;
 let buildLista = [1, 99, 1];
 let efficientPlacementBonus = 1;
@@ -112,10 +116,11 @@ function step(timestamp) {
 
 function expandLandFunc(e)
 {
+    let select = document.getElementById("chooseBuild").value;
     let noAdd = false;
     for(var i = 0; i<ownedLand.length; i++)
     {
-        if(ownedLand[i] == e)
+        if(ownedLand[i] == e && select != valueList[e-1])
         {
             noAdd = true;
         }
@@ -127,22 +132,45 @@ function expandLandFunc(e)
     else 
     {
         ownedLand.push(e);
+        switch(select)
+        {
+            case '0':
+                if(money>=upgrades[0].cost)
+                {
+                    money -= upgrades[0].cost;
+                    upgrades[0].cost *= 1.25;
+                    upgrades[0].cost = Math.round(upgrades[0].cost);
+                    moneyPerSecond += upgrades[0].amount;
+                    document.getElementById("u0").innerHTML = builds[0] + " " + upgrades[0].cost + " Mynt";
+                    var img = document.createElement('img');
+                    img.src="../img/farm.png";
+                    valueList[e-1] = 0;
+                    document.getElementById(e).appendChild(img);
+                }
+                break;
+            case '1':
+                if(money>=upgrades[1].cost)
+                {
+                    money -= upgrades[1].cost;
+                    upgrades[1].cost *= 1.25;
+                    upgrades[1].cost = Math.round(upgrades[1].cost);
+                    moneyPerSecond += upgrades[1].amount;
+                    document.getElementById("u1").innerHTML = builds[1] + " " + upgrades[1].cost + " Mynt";
+                    var img = document.createElement('img');
+                    img.src="../img/house.png";
+                    valueList[e-1] = 1;
+                    document.getElementById(e).appendChild(img);
+                }
+                break;
+            case '2':
+                var img = document.createElement('img');
+                img.src="../img/kyrka.png";
+                valueList[e-1] = 2;
+                document.getElementById(e).appendChild(img);
+                break;
+        }
     }
-    document.getElementById(e).innerHTML = '🏰';
-    alert(ownedLand);
 }
-
-/* Här använder vi en listener igen. Den här gången så lyssnar iv efter window
- * objeket och när det har laddat färdigt webbsidan(omvandlat html till dom)
- * När detta har skett så skapar vi listan med upgrades, för detta använder vi
- * en forEach loop. För varje element i arrayen upgrades så körs metoden upgradeList
- * för att skapa korten. upgradeList returnerar ett kort som vi fäster på webbsidan
- * med appendChild.
- * Läs mer:
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
- * https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild
- * Efter det så kallas requestAnimationFrame och spelet är igång.
- */
 window.addEventListener('load', (event) => {
     console.log('page is fully loaded');
     upgrades.forEach((upgrade) => {
@@ -163,30 +191,16 @@ window.addEventListener('load', (event) => {
         return element.id;
     });
 
-    for(var i = 0; i<tileList.length; i++)
-    {
-        document.getElementById(tileList[i]).innerHTML = price;
-        if(tileList[i].charAt(0) == 'a')
-        {
-            row1[tileList[i].charAt(1)-1] = tileList[i];
-        }
-        else if(tileList[i].charAt(0) == 'b')
-        {
-            row2[tileList[i].charAt(1)-1] = tileList[i];
-        }
-        else if(tileList[i].charAt(0) == 'c')
-        {
-            row3[tileList[i].charAt(1)-1] = tileList[i];
-        }
-        else if(tileList[i].charAt(0) == 'd')
-        {
-            row4[tileList[i].charAt(1)-1] = tileList[i];
-        }
-        else if(tileList[i].charAt(0) == 'e')
-        {
-            row5[tileList[i].charAt(1)-1] = tileList[i];
-        }
+    for (let i = 0; i < builds.length; i++) {
+        var opt = document.createElement('option');
+        opt.id = "u"+i;
+        opt.value = i;
+        opt.innerHTML = builds[i] + " " + upgrades[i].cost + " Mynt";
+        document.getElementById("chooseBuild").appendChild(opt);
     }
+    var img = document.createElement('img');
+    img.src="../img/slott.png";
+    document.getElementById(tileList[12]).appendChild(img);
     window.requestAnimationFrame(step);
 });
 
