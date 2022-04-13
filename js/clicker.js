@@ -69,10 +69,6 @@ clickerButton.addEventListener(
     },
     false
 );
-
-function fallingMoney()
-{
-}
 /* För att driva klicker spelet så kommer vi att använda oss av en metod som heter
  * requestAnimationFrame.
  * requestAnimationFrame försöker uppdatera efter den refresh rate som användarens
@@ -105,6 +101,11 @@ function step(timestamp) {
     window.requestAnimationFrame(step);
 }
 
+function expandLandFunc(e)
+{
+    alert(e)
+}
+
 /* Här använder vi en listener igen. Den här gången så lyssnar iv efter window
  * objeket och när det har laddat färdigt webbsidan(omvandlat html till dom)
  * När detta har skett så skapar vi listan med upgrades, för detta använder vi
@@ -130,6 +131,17 @@ window.addEventListener('load', (event) => {
             techList.appendChild(createCard(tech));
         }
     });
+    for(var i = 1; i<26; i++)
+    {
+        for(var j = 0; j<5; j++)
+        {
+            for(var k = 0; k<5; k++)
+            {
+                
+            }
+        }
+        document.getElementById(i).innerHTML = ("Test");
+    }
     window.requestAnimationFrame(step);
 });
 
@@ -310,6 +322,7 @@ techs = [
  * https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
  */
+
 function createCard(upgrade) {
     const card = document.createElement('div');
     card.classList.add('card');
