@@ -28,6 +28,16 @@ const mainDiv = document.querySelector('#mainDiv');
 let money = 0;
 let moneyPerClick = 1;
 let moneyPerSecond = 0;
+let price = 10;
+let row1 = [];
+let row2 = [];
+let row3 = [];
+let row4 = [];
+let row5 = [];
+let tileList = [];
+let tiles = 25;
+let ownedLand = [];
+
 let last = 0;
 let cityBuiltLvl = 0;
 let moneyForDevelopment = 2;
@@ -63,7 +73,6 @@ clickerButton.addEventListener(
     () => {
         // vid click öka score med 1
         money += moneyPerClick * efficientPlacementBonus;
-        fallingMoney();
         visualMoney('+' + moneyPerClick, 'money');
         // console.log(clicker.score);
     },
@@ -103,7 +112,24 @@ function step(timestamp) {
 
 function expandLandFunc(e)
 {
-    alert(e)
+    let noAdd = false;
+    for(var i = 0; i<ownedLand.length; i++)
+    {
+        if(ownedLand[i] == e)
+        {
+            noAdd = true;
+        }
+    }
+    if(noAdd == true)
+    {
+        noAdd = false;
+    }
+    else 
+    {
+        ownedLand.push(e);
+    }
+    document.getElementById(e).innerHTML = '🏰';
+    alert(ownedLand);
 }
 
 /* Här använder vi en listener igen. Den här gången så lyssnar iv efter window
@@ -131,16 +157,35 @@ window.addEventListener('load', (event) => {
             techList.appendChild(createCard(tech));
         }
     });
-    for(var i = 1; i<26; i++)
+    let gameCanvas = document.getElementById('landGFX');
+    let gameTiles = Array.from(gameCanvas.children);
+    tileList = gameTiles.map(element => {
+        return element.id;
+    });
+
+    for(var i = 0; i<tileList.length; i++)
     {
-        for(var j = 0; j<5; j++)
+        document.getElementById(tileList[i]).innerHTML = price;
+        if(tileList[i].charAt(0) == 'a')
         {
-            for(var k = 0; k<5; k++)
-            {
-                
-            }
+            row1[tileList[i].charAt(1)-1] = tileList[i];
         }
-        document.getElementById(i).innerHTML = ("Test");
+        else if(tileList[i].charAt(0) == 'b')
+        {
+            row2[tileList[i].charAt(1)-1] = tileList[i];
+        }
+        else if(tileList[i].charAt(0) == 'c')
+        {
+            row3[tileList[i].charAt(1)-1] = tileList[i];
+        }
+        else if(tileList[i].charAt(0) == 'd')
+        {
+            row4[tileList[i].charAt(1)-1] = tileList[i];
+        }
+        else if(tileList[i].charAt(0) == 'e')
+        {
+            row5[tileList[i].charAt(1)-1] = tileList[i];
+        }
     }
     window.requestAnimationFrame(step);
 });
