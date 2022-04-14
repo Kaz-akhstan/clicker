@@ -132,7 +132,7 @@ function expandLandFunc(e)
                     moneyPerSecond += upgrades[0].amount;
                     document.getElementById("u0").innerHTML = builds[0] + ": Köp för: " + upgrades[0].cost + " Mynt" + ": Tjänar " + upgrades[0].amount + " Mynt per Sekund";
                     var img = document.createElement('img');
-                    img.src="..img/farm.png";
+                    img.src="img/farm.png";
                     valueList[e] = 0;
                     document.getElementById(e).appendChild(img);
                     ownedLand.push(e);
@@ -151,7 +151,7 @@ function expandLandFunc(e)
                     moneyPerSecond += upgrades[1].amount;
                     document.getElementById("u1").innerHTML = builds[1] + ": Köp för: " + upgrades[1].cost + " Mynt" + ": Tjänar " + upgrades[1].amount + " Mynt per Sekund";
                     var img = document.createElement('img');
-                    img.src="..img/house.png";
+                    img.src="img/house.png";
                     valueList[e] = 1;
                     document.getElementById(e).appendChild(img);
                     ownedLand.push(e);
@@ -170,7 +170,7 @@ function expandLandFunc(e)
                     moneyPerSecond += upgrades[2].amount;
                     document.getElementById("u2").innerHTML = builds[2] + ": Köp för: " + upgrades[2].cost + " Mynt" + ": Tjänar " + upgrades[2].amount + " Mynt per Sekund";
                     var img = document.createElement('img');
-                    img.src="..img/kyrka.png";
+                    img.src="img/kyrka.png";
                     valueList[e] = 2;
                     document.getElementById(e).appendChild(img);
                     ownedLand.push(e);
@@ -205,7 +205,7 @@ window.addEventListener('load', (event) => {
         document.getElementById("chooseBuild").appendChild(opt);
     }
     var img = document.createElement('img');
-    img.src="..img/slott.png";
+    img.src="img/slott.png";
     document.getElementById(tileList[12]).appendChild(img);
     window.requestAnimationFrame(step);
 });
